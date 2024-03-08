@@ -1,19 +1,27 @@
 from os import system, name
 # clear screen depending on os
+
+
 def clear():
     system('cls') if name == 'nt' else system('clear')
 # mimic the getch() like in C language
+
+
 def getch():
-  import sys, tty, termios
-  old_settings = termios.tcgetattr(0)
-  new_settings = old_settings[:]
-  new_settings[3] &= ~termios.ICANON
-  try:
-    termios.tcsetattr(0, termios.TCSANOW, new_settings)
-    ch = sys.stdin.read(1)
-  finally:
-    termios.tcsetattr(0, termios.TCSANOW, old_settings)
-  return ch
+    import sys
+    # import tty --if in any case it break use this
+    import termios
+    old_settings = termios.tcgetattr(0)
+    new_settings = old_settings[:]
+    new_settings[3] &= ~termios.ICANON
+    try:
+        termios.tcsetattr(0, termios.TCSANOW, new_settings)
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(0, termios.TCSANOW, old_settings)
+    return ch
+
+
 man = '''
   😀
 🫲👕🫱
